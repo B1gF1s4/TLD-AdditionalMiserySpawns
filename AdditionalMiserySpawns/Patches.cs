@@ -2,6 +2,7 @@
 using Il2Cpp;
 using Il2CppTLD.Gameplay;
 using Il2CppTLD.Scenes;
+using ModTemplate;
 
 namespace AdditionalMiserySpawns
 {
@@ -15,40 +16,35 @@ namespace AdditionalMiserySpawns
 			if (ExperienceModeManager.GetCurrentExperienceModeType() != ExperienceModeType.Misery)
 				return true;
 
-			var sets = InitSceneSets();
-			var sceneSet = sets[rand.Next(0, sets.Count - 1)];
+			RandomSpawnManager.RollRandomSpawnLocation();
 
-			if (sceneSet == null)
+			if (RandomSpawnManager.Region == null)
 				return true;
 
-			__instance.m_ForceSceneLoad = sceneSet;
+			if (RandomSpawnManager.SceneSet == null)
+				return true;
 
+			__instance.m_ForceSceneLoad = RandomSpawnManager.SceneSet;
+			requestedRegion = RandomSpawnManager.Region;
 			return true;
 		}
+	}
 
-		private static List<SceneSet> InitSceneSets()
+	[HarmonyPatch(typeof(GameManager), "LaunchSandbox")]
+	internal class GameManagerLaunchSandboxPatch
+	{
+		internal static void Postfix(GameManager __instance)
 		{
-			var sets = new List<SceneSet>();
+			if (ExperienceModeManager.GetCurrentExperienceModeType() != ExperienceModeType.Misery)
+				return;
 
-			AddSceneSetToSets("RiverValleyRegion", ref sets);
-			AddSceneSetToSets("RuralRegion", ref sets);
-			AddSceneSetToSets("AshCanyonRegion", ref sets);
-			AddSceneSetToSets("CanneryRegion", ref sets);
-			AddSceneSetToSets("CoastalRegion", ref sets);
-			AddSceneSetToSets("CrashMountainRegion", ref sets);
-			AddSceneSetToSets("LakeRegion", ref sets);
-			AddSceneSetToSets("MarshRegion", ref sets);
-			AddSceneSetToSets("MountainTownRegion", ref sets);
-			AddSceneSetToSets("TracksRegion", ref sets);
+			if (RandomSpawnManager.Region == null)
+				return;
 
-			return sets;
-		}
+			if (RandomSpawnManager.SceneSet == null)
+				return;
 
-		private static void AddSceneSetToSets(string sceneName, ref List<SceneSet> sets)
-		{
-			var set = SceneSetManager.FindSceneSetForSceneName(sceneName);
-			if (set != null)
-				sets.Add(set);
+			GameManager.m_StartRegion = RandomSpawnManager.Region;
 		}
 	}
 }
