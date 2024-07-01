@@ -9,8 +9,6 @@ namespace AdditionalMiserySpawns
 	[HarmonyPatch(typeof(SandboxBaseConfig), "ValidateStartingRegion")]
 	internal class SandboxConfigValidateStartingRegionPatch
 	{
-		private static Random rand = new Random();
-
 		internal static bool Prefix(SandboxBaseConfig __instance, ref RegionSpecification requestedRegion)
 		{
 			if (ExperienceModeManager.GetCurrentExperienceModeType() != ExperienceModeType.Misery)
