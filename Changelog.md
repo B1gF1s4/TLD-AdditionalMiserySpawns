@@ -4,7 +4,7 @@
 
 - fixed an issue where PV map would show, even if spawning in a different region
 - changed picking random region to SandboxBaseConfig.GetRandomRegionFromAllAvailable
- - this will add dlc regions as possible spawns if you own the dlc
+  - this will add dlc regions as possible spawns if you own the dlc
 
 ## 1.0.0
 
