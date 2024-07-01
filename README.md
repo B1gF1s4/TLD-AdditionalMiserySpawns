@@ -1,5 +1,5 @@
 # TLD-AdditionalMiserySpawns
-Mod for The Long Dark that enables random spawn in misery mode
+Mod for The Long Dark that adds more spawn locations in misery mode
 
 ## Install
 
