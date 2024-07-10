@@ -2,7 +2,6 @@
 using Il2Cpp;
 using Il2CppTLD.Gameplay;
 using Il2CppTLD.Scenes;
-using ModTemplate;
 
 namespace AdditionalMiserySpawns
 {
@@ -11,19 +10,20 @@ namespace AdditionalMiserySpawns
 	{
 		internal static bool Prefix(SandboxBaseConfig __instance, ref RegionSpecification requestedRegion)
 		{
-			if (ExperienceModeManager.GetCurrentExperienceModeType() != ExperienceModeType.Misery)
+			if (ExperienceModeManager.GetCurrentExperienceModeType() !=
+				ExperienceModeType.Misery)
 				return true;
 
-			RandomSpawnManager.RollRandomSpawnLocation();
+			Mod.RollRandomSpawnLocation();
 
-			if (RandomSpawnManager.Region == null)
+			if (Mod.Region == null)
 				return true;
 
-			if (RandomSpawnManager.SceneSet == null)
+			if (Mod.SceneSet == null)
 				return true;
 
-			__instance.m_ForceSceneLoad = RandomSpawnManager.SceneSet;
-			requestedRegion = RandomSpawnManager.Region;
+			__instance.m_ForceSceneLoad = Mod.SceneSet;
+			requestedRegion = Mod.Region;
 			return true;
 		}
 	}
@@ -33,16 +33,17 @@ namespace AdditionalMiserySpawns
 	{
 		internal static void Postfix(GameManager __instance)
 		{
-			if (ExperienceModeManager.GetCurrentExperienceModeType() != ExperienceModeType.Misery)
+			if (ExperienceModeManager.GetCurrentExperienceModeType() !=
+				ExperienceModeType.Misery)
 				return;
 
-			if (RandomSpawnManager.Region == null)
+			if (Mod.Region == null)
 				return;
 
-			if (RandomSpawnManager.SceneSet == null)
+			if (Mod.SceneSet == null)
 				return;
 
-			GameManager.m_StartRegion = RandomSpawnManager.Region;
+			GameManager.m_StartRegion = Mod.Region;
 		}
 	}
 }

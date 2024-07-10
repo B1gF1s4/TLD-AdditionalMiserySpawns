@@ -1,12 +1,19 @@
-﻿using MelonLoader;
+﻿using Il2CppTLD.Gameplay;
+using Il2CppTLD.Scenes;
+using MelonLoader;
 
 namespace AdditionalMiserySpawns
 {
 	public class Mod : MelonMod
 	{
-		public override void OnInitializeMelon()
+		public static RegionSpecification? Region { get; set; }
+
+		public static SceneSet? SceneSet { get; set; }
+
+		public static void RollRandomSpawnLocation()
 		{
-			base.OnInitializeMelon();
+			Region = SandboxBaseConfig.GetRandomRegionFromAllAvailable();
+			SceneSet = SceneSetManager.FindSceneSetForSceneName(Region.name);
 		}
 	}
 }
