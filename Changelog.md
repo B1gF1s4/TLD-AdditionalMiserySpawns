@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- code cleanup
+
 ## 1.0.1
 
 - fixed an issue where PV map would show, even if spawning in a different region
